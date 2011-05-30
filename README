@@ -1,0 +1,151 @@
+leafdigital Optical media checker
+---------------------------------
+
+Copyright 2011 Samuel Marshall
+
+Released under GNU Public License v3 (see LICENSE)
+
+
+What this does
+--------------
+
+This app reads all the files on a DVD-R or other optical disc. This will
+show up any disc errors and tell you if the DVD-R has reached the end of
+its useful life.
+
+In its current version, this app runs only on Mac OS X (10.5 required).
+
+
+Background
+----------
+
+When you store important files on optical disc, you should make at least
+two copies using discs from different suppliers. You should check these
+discs regularly because optical discs can lose information over time. If
+a disc has lost information, duplicate it from the other copy using new
+media.
+
+This app is designed to let you verify your discs with as little effort as
+possible.
+
+
+Getting the app
+---------------
+
+1) Download the DMG file from the Downloads button.
+
+2) Open the DMG.
+
+3) Drag the app into your Applications folder or another location.
+
+
+How to use
+----------
+
+1) Run the app.
+
+2) Put an optical disc into any optical drive attached to your computer.
+
+3) Checking starts automatically as soon as the operating system recognises
+   the disc.
+
+4) When the check finishes, the disc will be ejected. 
+
+5) Put in the next disc you want to check, or quit the program if you have
+   finished.
+
+
+Interface details
+-----------------
+
+The program shows a box for each disc being checked. Usually, this box will
+be replaced when you put the next disc in, but if there are errors, the box
+stays up. (To get rid of error boxes, close the program and run it again.)
+
+If there are errors, all the files that failed to copy are listed in the
+scrolling box. Should you wish to copy this list to another program, select
+all the lines in the box (using shift-click) and then press Command+C to
+copy.
+   
+If you have more than one optical drive you can check multiple discs at once
+(just put discs into each drive as required) although I haven't tested this.
+
+
+Tips
+----
+
+Please DO NOT CONTACT ME for advice restoring data from damaged discs. I
+don't care how important it is - there is absolutely no chance that I'll
+be able to help. 
+
+Here is literally everything I know about it:
+
+- Sometimes different drives are better at reading discs than others. Try
+  a few drives.
+  
+- It might be possible to find software that reads discs repeatedly or at
+  a low level or something in order to extract the data, but I don't know
+  about this.
+  
+- There are companies which offer extremely expensive data retrieval
+  services, but I don't know about these.
+
+If you have vitally important information you should probably keep more than
+two copies on disc or else use disc copies in conjunction with a third backup
+mechanism (e.g. two copies on disc, one on external HD or in cloud storage).
+
+
+Troubleshooting
+---------------
+
+If the app breaks oddly, check standard error in console; I didn't bother
+to code a proper way to display some errors.
+
+It uses the 'diskutil' program internally, so if Apple change the command line
+or return syntax for that program in a future OS version, it will break.
+
+Tested on OS X 10.6.7 only.
+
+
+Build instructions
+------------------
+
+If you want to build this project, download the source using Git or the
+GitHub download option.
+
+Once you have downloaded the source, just change to the directory with this
+file in and run 'ant'. The default build.xml file will build the DMG file.
+
+Examine build.xml if you want to change where it puts temporary data or the
+resulting output files.
+
+
+Documentation
+-------------
+
+Not a lot, sorry, but the app is very simple...
+
+
+Repository information
+----------------------
+
+In case you're not reading it there, the hosting site for this project is:
+
+http://github.com/quen/opticalchecker
+
+There you can do the following:
+
+* Download the full source code (click the Download Source button or use Git).
+* Download the latest binary version (click the Downloads tab).
+* Report bugs or contribute improvements (click the Issues tab).
+
+
+Acknowledgements
+----------------
+
+Icon based on http://www.openclipart.org/detail/104191 by 'decosigner',
+noted on that page as public domain.
+
+Tick mark in the image is from some font or other.
+
+All other work by me.

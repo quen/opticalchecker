@@ -1,0 +1,97 @@
+<project name="dvdchecker" default="all" basedir=".">
+	
+	<property name="build" location="${java.io.tmpdir}/build"/>
+
+	<property name="numericversion" value="1.0"/>
+	<property name="stringversion" value="1.0"/>
+	<property name="fileversion" value="10"/>
+	<property name="fullrelease" value="y"/>
+	
+	<property name="osxdmg" location="${user.home}/Desktop/opticalchecker${fileversion}.dmg"/>
+	<property name="stub" location="/System/Library/Frameworks/JavaVM.framework/Versions/Current/Resources/javaapplicationstub"/>
+
+	<description>
+	   Builds app.
+	</description>
+
+  <target name="init">
+	  <tstamp/>
+    <delete dir="${build}"/>
+    <mkdir dir="${build}"/>
+  </target>
+	
+	<macrodef name="compile">
+		<attribute name="srcdir"/>
+		<sequential>
+  	  <javac srcdir="@{srcdir}" destdir="${build}/classes" source="1.5" target="1.5" encoding="UTF-8" debug="true" optimize="true"/>
+		</sequential>
+	</macrodef>
+	
+  <target name="compile" depends="init" description="Compile everything">
+    <mkdir dir="${build}/classes"/>
+	  <javac srcdir="src" destdir="${build}/classes" source="1.5" target="1.5" encoding="UTF-8" debug="true" optimize="true"/>
+  </target>
+		
+	<target name="jar" depends="compile">
+    <mkdir dir="${build}/output"/>
+		<delete file="${build}/output/opticalchecker.jar"/>
+    <jar jarfile="${build}/output/opticalchecker.jar" basedir="${build}/classes">
+   	  <include name="com/**"/>
+  	  <manifest>
+				<attribute name="Main-Class" value="com.leafdigital.opticalchecker.Check"/>
+		  </manifest>
+		</jar>
+	</target>
+	
+  <target name="osxapp" depends="jar">
+  	
+    	<property name="osxapp" location="${build}/osxdmg/Optical media checker.app"/> 
+
+  	  <!-- Create the distribution directory -->
+  	  <delete dir="${osxapp}"/>
+  	  <mkdir dir="${osxapp}"/>
+  	
+  	  <!-- Copy all the standard files into it -->
+  	  <copy todir="${osxapp}">
+  	    <fileset dir="osx">
+  	    		<exclude name="**/Info.plist"/>
+  	  		</fileset>
+  	  </copy>
+  	  <mkdir dir="${osxapp}/Contents/MacOS"/>
+			<copy todir="${osxapp}/Contents/MacOS" file="${stub}"/>
+  		<copy todir="${osxapp}/Contents" file="osx/Contents/Info.plist">
+  	    <filterset>
+  	      <filter token="NUMERICVERSION" value="${numericversion}"/>
+	      <filter token="STRINGVERSION" value="${stringversion}"/>
+  	    </filterset>
+  		</copy>
+  	
+  	  <!-- Copy library files and jar file -->
+ 	  	<copy todir="${osxapp}">
+ 	  		<fileset dir="${build}/output">
+ 	  			<exclude name="opticalchecker.jar"/>
+ 	  		</fileset>
+	  	</copy>
+	  	<copy todir="${osxapp}/Contents/Resources/Java" file="${build}/output/opticalchecker.jar"/>
+  	  			
+  	  <!-- Make the stub executable -->
+  	  <chmod file="${osxapp}/Contents/MacOS/JavaApplicationStub" perm="ugo+rx"/>
+  </target>
+	
+	<target name="osxdmg" depends="osxapp" description="Create OS X .dmg">
+		<delete file="${osxdmg}"/>
+  	<exec executable="hdiutil" failonerror="true">
+  		<arg value="create"/>
+  		<arg value="-fs"/>
+  		<arg value="HFS+"/>
+  		<arg value="-volname"/>
+  		<arg value="Optical media checker"/>
+  		<arg value="-srcfolder"/>
+  		<arg file="${build}/osxdmg"/>
+  		<arg file="${osxdmg}"/>
+  	</exec>
+	</target>
+	
+	<target name="all" depends="osxdmg"/>
+	
+</project>	
