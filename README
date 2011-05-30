@@ -68,7 +68,8 @@ all the lines in the box (using shift-click) and then press Command+C to
 copy.
    
 If you have more than one optical drive you can check multiple discs at once
-(just put discs into each drive as required) although I haven't tested this.
+(just put discs into each drive as required) although I haven't tested this
+because the internal drive inside my Mac Mini is knackered.
 
 
 Tips
@@ -136,7 +137,7 @@ http://github.com/quen/opticalchecker
 There you can do the following:
 
 * Download the full source code (click the Download Source button or use Git).
-* Download the latest binary version (click the Downloads tab).
+* Download the latest binary version (click the Downloads button).
 * Report bugs or contribute improvements (click the Issues tab).
 
 
